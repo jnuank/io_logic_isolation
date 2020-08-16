@@ -1,11 +1,5 @@
 import dataclasses
-from typing import List
 
-from source.domain.models.care_csv_bills.care_csv_basic_bill import CareCsvBasicBill
-from source.domain.repository.care_bill_repository_base import CareBillRepositoryBase
-from source.domain.repository.care_csv_bill_repository_base import CareCsvBillRepositoryBase
-from source.domain.repository.code_repository_base import CodeRepositoryBase
-from source.domain.rules.csv_to_pompa import TransferRules
 from source.util.util import get_logger
 
 logger = get_logger('INFO')
