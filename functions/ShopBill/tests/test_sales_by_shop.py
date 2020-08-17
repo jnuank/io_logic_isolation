@@ -17,10 +17,12 @@ class CsvToShopSales:
 
         SHOP_COLUMN = 0
         # 店舗コードでグルーピングする
-        shop_group_list = df.groupby(SHOP_COLUMN)
+        shop_group_list = df.groupby([SHOP_COLUMN, 1, 3])
 
         results = []
         for group_rows in shop_group_list:
+            print(group_rows[0][0])
+
             shop_code = self.code_respository.get_shop_code(group_rows[0])
             year_month = [record[4] for record in group_rows[1].values.tolist() if record[2] == '01'][0][:6]
             amount_list = [int(record[5]) * int(record[6]) for record in group_rows[1].values.tolist() if record[2] == '02']

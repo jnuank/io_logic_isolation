@@ -9,6 +9,6 @@ class CsvCashTransactionDetail:
     # 商品名
     item_name: str
     # 単価
-    unit_price: str
+    unit_price: int
     # 数量
-    quantity: str
+    quantity: int

@@ -1,10 +1,9 @@
-from source.infrastructure.s3_care_bill_repository import S3CareBillRepository
-from source.infrastructure.s3_care_csv_bill_total_repository import S3CareCsvBillTotalRepository
-from source.infrastructure.s3_care_csv_bill_repository import S3CareCsvBillRepository
-from source.infrastructure.s3_code_repository import S3CodeRepository
-from source.application.csv_to_space_separate_application import CsvToSpaceSeparateApplication
-import os
 import json
+import os
+
+import boto3
+
+from source.application.csv_to_space_separate_application import CsvToSpaceSeparateApplication
 from source.util.util import get_logger, logging_decorator
 
 logger = get_logger('INFO')
@@ -18,11 +17,24 @@ def import_handler(event, context):
         body_str = event['body']
         body = json.loads(body_str)
         key = body['key']
-        bucket = os.environ['BUCKET_NAME']
+        bucket_name = os.environ['BUCKET_NAME']
+
+        download_filepath = '/tmp/' + key
+        # S3にアップロードされたファイルをダウンロード
+        try:
+            s3 = boto3.resource('s3')
+            bucket = s3.Bucket(bucket_name)
+            bucket.download_file(key, download_filepath)
+        except Exception as error:
+            raise error
+
+        # 別のアプリケーションサービス
+        # Bucket名とKey名を渡したら、欲しいCSVデータを持ってきてくれる
+        # ここで失敗する可能性もある。
 
         # CSV取り込み→スペース区切り保存
         trans_app = CsvToSpaceSeparateApplication(bucket, key)
-        trans_app.csv_to_space_separate()
+        trans_app.csv_to_space_separate('dummy_file.csv')
 
         dict_value = {'message': 'uploadしました', }
         json_str = json.dumps(dict_value)
