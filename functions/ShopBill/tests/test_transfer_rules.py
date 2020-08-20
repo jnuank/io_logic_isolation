@@ -9,8 +9,12 @@ class TestTransferRules:
 
         csv_models = CsvCashTransactionHeader.from_csv('cash_register.csv')
 
-        results = TransferRules(InMemoryCodeRepository()).to_shop_sales(csv_models)
+        shop_monthly_sales = TransferRules(InMemoryCodeRepository()).to_shop_sales(csv_models)
 
-        assert results[0].shop_code == '001'
-        assert results[0].year_month == '202008'
-        assert results[0].amount() == 22000
+        assert shop_monthly_sales[0].shop_code == '001'
+        assert shop_monthly_sales[0].year_month == '202008'
+        assert shop_monthly_sales[0].amount() == 51300
+
+        assert shop_monthly_sales[1].shop_code == '002'
+        assert shop_monthly_sales[1].year_month == '202008'
+        assert shop_monthly_sales[1].amount() == 4900
