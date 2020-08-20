@@ -60,6 +60,3 @@ class S3CsvCashTransactionRepository(CsvCashTransactionRepositoryBase):
             results.append(header)
 
         return results
-
-    def save(self, data: CsvCashTransactionHeader) -> None:
-        pass

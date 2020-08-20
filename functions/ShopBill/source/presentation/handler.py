@@ -1,10 +1,11 @@
 import json
 import os
 
-import boto3
-
 from source.application.csv_to_space_separate_application import CsvToSpaceSeparateApplication
+from source.infrastructure.s3_csv_cash_transaction_repository import S3CsvCashTransactionRepository
+from source.infrastructure.s3_shop_sales_respository import S3ShopSalesRepository
 from source.util.util import get_logger, logging_decorator
+from tests.In_memory_code_repository import InMemoryCodeRepository
 
 logger = get_logger('INFO')
 
@@ -19,23 +20,16 @@ def import_handler(event, context):
         key = body['key']
         bucket_name = os.environ['BUCKET_NAME']
 
-        download_filepath = '/tmp/' + key
-        # S3にアップロードされたファイルをダウンロード
-        try:
-            s3 = boto3.resource('s3')
-            bucket = s3.Bucket(bucket_name)
-            bucket.download_file(key, download_filepath)
-        except Exception as error:
-            raise error
-
-        # 別のアプリケーションサービス
-        # Bucket名とKey名を渡したら、欲しいCSVデータを持ってきてくれる
-        # ここで失敗する可能性もある。
+        code_repository = InMemoryCodeRepository()
+        csv_repository = S3CsvCashTransactionRepository(key, bucket_name)
+        # ここで指定するkey, bucketは既に決まっている想定
+        shop_sales_repository = S3ShopSalesRepository('xxxxx.txt', 'xxxxx-bucket')
 
         # CSV取り込み→スペース区切り保存
-        trans_app = CsvToSpaceSeparateApplication(bucket, key)
-        trans_app.csv_to_space_separate('dummy_file.csv')
+        trans_app = CsvToSpaceSeparateApplication(code_repository, csv_repository, shop_sales_repository)
+        trans_app.csv_to_space_separate()
 
+        # Response組み立て
         dict_value = {'message': 'uploadしました', }
         json_str = json.dumps(dict_value)
 
