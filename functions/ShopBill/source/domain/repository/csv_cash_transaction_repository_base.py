@@ -13,6 +13,7 @@ class CsvCashTransactionRepositoryBase(object, metaclass=ABCMeta):
     def load(self) -> List[CsvCashTransactionHeader]:
         """
         レジ取引データモデルを取得する
+        :param file_path: csvファイルパス
         :return: レジ取引データモデル
         """
         raise NotImplementedError()
