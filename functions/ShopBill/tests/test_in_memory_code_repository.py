@@ -1,6 +1,6 @@
 from pytest import raises
 
-from tests.In_memory_code_repository import InMemoryCodeRepository
+from tests.in_memory_code_repository import InMemoryCodeRepository
 
 
 class TestInMemoryCodeRepository:

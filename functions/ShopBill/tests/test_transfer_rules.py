@@ -1,5 +1,5 @@
 from source.domain.rules.transfer_rules import TransferRules
-from tests.In_memory_code_repository import InMemoryCodeRepository
+from tests.in_memory_code_repository import InMemoryCodeRepository
 from tests.in_memory_csv_cash_transaction_repository import InMemoryCsvCashTransactionRepository
 from tests.in_memory_shop_sales_repository import InMemoryShopSalesRepository
 

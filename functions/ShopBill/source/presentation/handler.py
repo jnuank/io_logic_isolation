@@ -5,7 +5,7 @@ from source.application.csv_to_space_separate_application import CsvToSpaceSepar
 from source.infrastructure.s3_csv_cash_transaction_repository import S3CsvCashTransactionRepository
 from source.infrastructure.s3_shop_sales_repository import S3ShopSalesRepository
 from source.util.util import get_logger, logging_decorator
-from tests.In_memory_code_repository import InMemoryCodeRepository
+from tests.in_memory_code_repository import InMemoryCodeRepository
 
 logger = get_logger('INFO')
 
