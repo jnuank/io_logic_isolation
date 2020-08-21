@@ -29,7 +29,7 @@ class InMemoryCodeRepository(CodeRepositoryBase):
         """
         result = self.__shop_code_table.get(external_system_shop_code)
         if result is None:
-            raise ValueError(f'指定したキーに該当する施設IDは存在しません。キー:{external_system_shop_code}')
+            raise ValueError(f'指定したキーに該当する店舗コードは存在しません。キー:{external_system_shop_code}')
 
         return result
 
@@ -44,6 +44,6 @@ class InMemoryCodeRepository(CodeRepositoryBase):
         result = self.__cash_register_code_table.get((external_system_shop_code, external_system_cash_register_code))
 
         if result is None:
-            raise ValueError(f'指定したキーに該当する入居者IDは存在しません。キー:{external_system_cash_register_code}')
+            raise ValueError(f'指定したキーに該当するレジ番号は存在しません。キー:{external_system_cash_register_code}')
 
         return result
