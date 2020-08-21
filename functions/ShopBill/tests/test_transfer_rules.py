@@ -28,18 +28,8 @@ class TestTransferRules:
         repository = InMemoryShopSalesRepository()
         repository.save(shop_monthly_sales)
 
-        assert repository.shop_monthly_sales[0][0] == '001'
-        assert repository.shop_monthly_sales[0][1] == '202008'
-        assert repository.shop_monthly_sales[0][2] == '51300'
-
-        assert repository.daily_sales[0][0] == '001'
-        assert repository.daily_sales[0][1] == '20200816'
-        assert repository.daily_sales[0][2] == '51300'
-
-        assert repository.daily_details[0][0] == '001'
-        assert repository.daily_details[0][1] == '0000001'
-        assert repository.daily_details[0][2] == '001'
-        assert repository.daily_details[0][3] == '20200816100000'
-        assert repository.daily_details[0][4] == '5000'
+        assert repository.shop_monthly_sales == '001 202008 51300\n002 202008 4900\n'
+        assert repository.daily_sales == '001 20200816 51300\n002 20200816 4900\n'
+        assert repository.daily_details == '001 0000001 001 20200816100000 5000\n001 0000002 001 20200816113010 12000\n001 0000001 901 20200816102049 34300\n002 0000001 001 20200816152009 4900\n'
 
 
