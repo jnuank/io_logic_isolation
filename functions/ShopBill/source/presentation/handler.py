@@ -14,12 +14,13 @@ logger = get_logger('INFO')
 def import_handler(event, context):
 
     try:
-        # eventから必要情報を抜き出す
+        # Request受け取り
         body_str = event['body']
         body = json.loads(body_str)
         key = body['key']
         bucket_name = os.environ['BUCKET_NAME']
 
+        # 変換処理の前準備(Repositoryの用意)
         code_repository = InMemoryCodeRepository()
         csv_repository = S3CsvCashTransactionRepository(key, bucket_name)
         # bucketは既に決まっている想定
