@@ -7,4 +7,4 @@
 
 ## 各レイヤの依存関係のイメージ
 
-![image](https://user-images.githubusercontent.com/33717710/96805021-8fa52680-144b-11eb-9c72-a5d32edd4def.png)
+![image](https://user-images.githubusercontent.com/33717710/96805214-10fcb900-144c-11eb-9d88-b88d954fd377.png)
